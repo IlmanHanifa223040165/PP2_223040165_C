@@ -1,0 +1,170 @@
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
+import java.util.Date;
+import java.util.Calendar;
+import javax.swing.SpinnerNumberModel;
+
+public class FormPendaftaranNasabah extends JFrame {
+
+    private boolean checkBoxSelected;
+    private JTextField textFieldNama;
+    private JTextArea txtOutput;
+    private JPasswordField passwordField;
+    private JPasswordField confirmPasswordField;
+    private JList<String> listJenisTabungan;
+    private JSpinner spinnerFrekuensiTransaksi;
+    private JSpinner spinnerTanggalLahir;
+
+    public FormPendaftaranNasabah() {
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setTitle("Form Pendaftaran Nasabah Bank");
+
+        // Menu bar
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menu = new JMenu("Menu");
+        JMenuItem menuItemReset = new JMenuItem("Reset");
+        JMenuItem menuItemExit = new JMenuItem("Exit");
+        menuItemReset.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                resetForm();
+            }
+        });
+        menuItemExit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        menu.add(menuItemReset);
+        menu.add(menuItemExit);
+        menuBar.add(menu);
+        this.setJMenuBar(menuBar);
+
+        // Input Nama
+        JLabel labelNama = new JLabel("Nama:");
+        labelNama.setBounds(15, 20, 350, 10);
+        textFieldNama = new JTextField();
+        textFieldNama.setBounds(15, 40, 350, 30);
+
+        // Jenis Tabungan
+        JLabel labelJenisTabungan = new JLabel("Jenis Tabungan:");
+        labelJenisTabungan.setBounds(15, 80, 350, 10);
+        String[] jenisTabungan = {"Tabungan Masa Tua", "Tabungan Umroh", "Tabungan Bulanan", "Tabungan Inventasi"};
+        listJenisTabungan = new JList<>(jenisTabungan);
+        listJenisTabungan.setBounds(15, 100, 350, 60);
+        listJenisTabungan.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // Frekuensi Transaksi
+        JLabel labelFrekuensiTransaksi = new JLabel("Frekuensi Transaksi per Bulan:");
+        labelFrekuensiTransaksi.setBounds(15, 170, 350, 10);
+        spinnerFrekuensiTransaksi = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+        spinnerFrekuensiTransaksi.setBounds(15, 190, 350, 30);
+
+        // Tanggal Lahir
+        JLabel labelTanggalLahir = new JLabel("Tanggal Lahir:");
+        labelTanggalLahir.setBounds(15, 230, 350, 10);
+        Calendar calendar = Calendar.getInstance();
+        spinnerTanggalLahir = new JSpinner(new SpinnerDateModel(calendar.getTime(), null, null, Calendar.YEAR));
+        JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(spinnerTanggalLahir, "dd/MM/yyyy");
+        spinnerTanggalLahir.setEditor(dateEditor);
+        spinnerTanggalLahir.setBounds(15, 250, 350, 30);
+
+        // Password
+        JLabel labelPassword = new JLabel("Password:");
+        labelPassword.setBounds(15, 290, 350, 10);
+        passwordField = new JPasswordField();
+        passwordField.setBounds(15, 310, 350, 30);
+
+        // Confirm Password
+        JLabel labelConfirmPassword = new JLabel("Konfirmasi Password:");
+        labelConfirmPassword.setBounds(15, 350, 350, 10);
+        confirmPasswordField = new JPasswordField();
+        confirmPasswordField.setBounds(15, 370, 350, 30);
+
+        // Output area
+        txtOutput = new JTextArea();
+        txtOutput.setBounds(15, 410, 350, 100);
+        txtOutput.setEditable(false);
+
+        // Button Simpan
+        JButton button = new JButton("Simpan");
+        button.setBounds(15, 520, 100, 40);
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                simpanData();
+            }
+        });
+
+        // Add components to frame
+        this.setLayout(null);
+        this.add(labelNama);
+        this.add(textFieldNama);
+        this.add(labelJenisTabungan);
+        this.add(listJenisTabungan);
+        this.add(labelFrekuensiTransaksi);
+        this.add(spinnerFrekuensiTransaksi);
+        this.add(labelTanggalLahir);
+        this.add(spinnerTanggalLahir);
+        this.add(labelPassword);
+        this.add(passwordField);
+        this.add(labelConfirmPassword);
+        this.add(confirmPasswordField);
+        this.add(txtOutput);
+        this.add(button);
+
+        this.setSize(400, 620);
+        this.setVisible(true);
+    }
+
+    private void simpanData() {
+        String nama = textFieldNama.getText();
+        String jenisTabungan = listJenisTabungan.getSelectedValue();
+        int frekuensiTransaksi = (Integer) spinnerFrekuensiTransaksi.getValue();
+        Date tanggalLahir = (Date) spinnerTanggalLahir.getValue();
+
+        char[] password = passwordField.getPassword();
+        char[] confirmPassword = confirmPasswordField.getPassword();
+
+        txtOutput.setText("");
+
+        if (nama.isEmpty()) {
+            txtOutput.append("Nama tidak boleh kosong\n");
+            return;
+        }
+
+        if (jenisTabungan == null) {
+            txtOutput.append("Pilih jenis tabungan\n");
+            return;
+        }
+
+        if (!String.valueOf(password).equals(String.valueOf(confirmPassword))) {
+            txtOutput.append("Password dan konfirmasi password tidak cocok\n");
+        } else {
+            txtOutput.append("Password cocok\n");
+        }
+
+        txtOutput.append("Nama: " + nama + "\n");
+        txtOutput.append("Jenis Tabungan: " + jenisTabungan + "\n");
+        txtOutput.append("Frekuensi Transaksi per Bulan: " + frekuensiTransaksi + "\n");
+        txtOutput.append("Tanggal Lahir: " + new java.text.SimpleDateFormat("dd/MM/yyyy").format(tanggalLahir) + "\n");
+    }
+
+    private void resetForm() {
+        textFieldNama.setText("");
+        listJenisTabungan.clearSelection();
+        spinnerFrekuensiTransaksi.setValue(1);
+        passwordField.setText("");
+        confirmPasswordField.setText("");
+        txtOutput.setText("");
+        spinnerTanggalLahir.setValue(Calendar.getInstance().getTime());
+    }
+
+    public static void main(String[] args) {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new FormPendaftaranNasabah();
+            }
+        });
+    }
+}
+
