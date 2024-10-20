@@ -1,3 +1,4 @@
+package pertemuan3;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -29,7 +30,7 @@ public class HelloBorderLayout extends JFrame {
         
         buttonB.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                labelHasil.setText("Jawaban anda salah);
+                labelHasil.setText("Jawaban anda salah");
             }
         });
     
@@ -49,7 +50,4 @@ public class HelloBorderLayout extends JFrame {
             }
         });
     }
-}
-
-
 }
