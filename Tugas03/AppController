@@ -1,0 +1,41 @@
+package Tugas03;
+
+public class AppController {
+    private DataPengelolaPiket dataPengelolaPiket;
+    private DataTablePanel dataTablePanel;
+
+    public AppController(DataPengelolaPiket dataPengelolaPiket, DataTablePanel dataTablePanel) {
+        this.dataPengelolaPiket = dataPengelolaPiket;
+        this.dataTablePanel = dataTablePanel;
+    }
+
+    public void addDataToTable(DataPiket dataPiket) {
+        // Menyimpan data ke dataPengelolaPiket
+        dataPengelolaPiket.addDataPiket(dataPiket);
+
+        // Tambahkan data ke tabel
+        dataTablePanel.addRow(new Object[] {
+            dataPiket.getNama(),
+            dataPiket.getTanggal(),
+            dataPiket.getJabatan(),
+            dataPiket.getKehadiran(),
+            dataPiket.getTugas(),
+            dataPiket.getCatatan()
+        });
+    }
+
+    // Method untuk mengisi ulang data dari dataPengelolaPiket ke tabel
+    public void loadAllDataToTable() {
+        dataTablePanel.clearTable(); // Bersihkan tabel sebelum memuat data baru
+        for (DataPiket dataPiket : dataPengelolaPiket.getAllDataPiket()) {
+            dataTablePanel.addRow(new Object[] {
+                dataPiket.getNama(),
+                dataPiket.getTanggal(),
+                dataPiket.getJabatan(),
+                dataPiket.getKehadiran(),
+                dataPiket.getTugas(),
+                dataPiket.getCatatan()
+            });
+        }
+    }
+}
