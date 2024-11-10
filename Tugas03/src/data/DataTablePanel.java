@@ -1,4 +1,4 @@
-package Tugas03;
+package data;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

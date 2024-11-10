@@ -1,9 +1,13 @@
-package Tugas03;
+package panel;
 
 import javax.swing.*;
+
+import controller.AppController;
+import data.DataPiket;
+import data.DataTablePanel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class InputFormPanell extends JPanel {
     private JTextField txtNama;
@@ -14,7 +18,6 @@ public class InputFormPanell extends JPanel {
     private JSpinner spinnerTanggal;
     private JButton btnSimpan;
     private ButtonGroup bgKehadiran;
-    private DataTablePanel dataTablePanel; 
     private AppController appController;
     // Menyimpan instance dari DataTablePanel
 
@@ -57,7 +60,7 @@ public class InputFormPanell extends JPanel {
         gbc.gridy = 2;
         add(new JLabel("Jabatan:"), gbc);
 
-        cmbJabatan = new JComboBox<>(new String[]{"Ketua", "Sekretaris", "Bendahara", "Anggota"});
+        cmbJabatan = new JComboBox<>(new String[] { "Ketua", "Sekretaris", "Bendahara", "Anggota" });
         gbc.gridx = 1;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
@@ -125,15 +128,16 @@ public class InputFormPanell extends JPanel {
     private void simpanData(ActionEvent e) {
         // Ambil data dari form
         String nama = txtNama.getText();
-        String tanggal = ((JSpinner.DateEditor) spinnerTanggal.getEditor()).getFormat().format(spinnerTanggal.getValue());
+        String tanggal = ((JSpinner.DateEditor) spinnerTanggal.getEditor()).getFormat()
+                .format(spinnerTanggal.getValue());
         String jabatan = (String) cmbJabatan.getSelectedItem();
         String kehadiran = rbHadir.isSelected() ? "Hadir" : "Tidak Hadir";
         String tugas = (cbTugas1.isSelected() ? "Bersih Ruangan " : "") +
-                       (cbTugas2.isSelected() ? "Susun Dokumen" : "");
+                (cbTugas2.isSelected() ? "Susun Dokumen" : "");
         String catatan = txtCatatan.getText();
-        
+
         // Buat objek DataPiket untuk menyimpan data yang diinputkan
-        DataPiket dataPiket = new DataPiket(nama, tanggal, jabatan, kehadiran, tugas, catatan);
+        DataPiket dataPiket = new DataPiket();
 
         // Tambahkan data ke controller
         appController.addDataToTable(dataPiket);

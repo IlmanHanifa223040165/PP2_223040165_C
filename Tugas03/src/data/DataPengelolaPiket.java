@@ -1,4 +1,4 @@
-package Tugas03;
+package data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,4 +16,3 @@ public class DataPengelolaPiket {
 
     // Implementasi lain jika perlu, seperti hapus data atau simpan ke file
 }
-
