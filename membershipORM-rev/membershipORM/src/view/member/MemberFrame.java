@@ -5,7 +5,7 @@ import java.util.List;
 import model.JenisMember;
 import model.Member;
 import dao.MemberDao;
-import dao.JenisMemberDao;
+import mapper.JenisMemberDao;
 
 public class MemberFrame extends JFrame {
     private List<JenisMember> jenisMemberList;

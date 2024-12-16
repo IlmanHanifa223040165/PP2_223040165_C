@@ -1,9 +1,10 @@
 package view.jenismember;  
 
-import dao.JenisMemberDao;  
 import java.awt.event.ActionEvent;  
 import java.awt.event.ActionListener;  
-import java.util.UUID;  
+import java.util.UUID;
+
+import mapper.JenisMemberDao;
 import model.JenisMember;  
 
 public class JenisMemberButtonSimpanActionListener implements ActionListener {  

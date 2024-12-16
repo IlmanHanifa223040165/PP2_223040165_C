@@ -5,10 +5,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;  
 import javax.swing.JScrollPane;  
 import javax.swing.JTable;  
-import javax.swing.JTextField;  
+import javax.swing.JTextField;
+
+import mapper.JenisMemberDao;
+
 import java.util.List;  
 import model.JenisMember;  
-import dao.JenisMemberDao;  
 
 public class JenisMemberFrame extends JFrame {  
     private List<JenisMember> jenisMemberList;  

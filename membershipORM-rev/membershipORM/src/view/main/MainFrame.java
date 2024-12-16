@@ -8,8 +8,8 @@ import java.util.*;
 import model.*;  
 import view.jenismember.JenisMemberFrame;  
 import view.member.MemberFrame;  
-import dao.MemberDao;  
-import dao.JenisMemberDao;  
+import dao.MemberDao;
+import mapper.JenisMemberDao;  
 
 public class MainFrame extends JFrame {  
     private JenisMemberFrame jenisMemberFrame;  
