@@ -23,15 +23,16 @@ public class UserPdf {
         Document document = new Document(PageSize.A4);
 
         try {
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(System.getProperty("user.dir")+ File.separator + "users.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(document,
+                    new FileOutputStream(System.getProperty("user.dir") + File.separator + "users.pdf"));
             float width = document.getPageSize().getWidth();
             float height = document.getPageSize().getHeight();
 
             document.open();
 
-            float[] columnDefinitoinSize = {33.33F, 33.33F, 33.33F};
+            float[] columnDefinitoinSize = { 33.33F, 33.33F, 33.33F };
 
-            float pos = height /2;
+            float pos = height / 2;
             PdfPTable table = null;
             PdfPCell cell = null;
 
@@ -46,17 +47,17 @@ public class UserPdf {
             table.addCell(new Phrase("Email"));
 
             int no = 1;
-            for (User user: users) {
+            for (User user : users) {
                 table.addCell(new Phrase(String.valueOf(no++)));
                 table.addCell(new Phrase(user.getName()));
                 table.addCell(new Phrase(user.getEmail()));
             }
 
             document.add(table);
-        }catch (DocumentException | IOException ex){
+        } catch (DocumentException | IOException ex) {
             System.err.println(ex.getMessage());
         }
-        //step 5
+        // step 5
         document.close();
     }
 
